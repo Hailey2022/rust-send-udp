@@ -1,4 +1,4 @@
-use std::io::{BufRead, Write};
+// use std::io::{BufRead, Write};
 use smol::net::UdpSocket;
 
 async fn send(ip: &str, local_port: u16) -> anyhow::Result<()> {
@@ -11,31 +11,29 @@ async fn send(ip: &str, local_port: u16) -> anyhow::Result<()> {
     Ok(())
 }
 
-fn prompt(message: &str) -> anyhow::Result<String> {
-    let stdout = std::io::stdout();
-    let mut stdout = stdout.lock();
-    stdout.write_all(message.as_bytes())?;
-    stdout.flush()?;
-
-    let stdin = std::io::stdin();
-    let mut stdin = stdin.lock();
-
-    let mut line = String::new();
-    stdin.read_line(&mut line)?;
-    Ok(line)
-}
+// fn prompt(message: &str) -> anyhow::Result<String> {
+//     let stdout = std::io::stdout();
+//     let mut stdout = stdout.lock();
+//     stdout.write_all(message.as_bytes())?;
+//     stdout.flush()?;
+//     let stdin = std::io::stdin();
+//     let mut stdin = stdin.lock();
+//     let mut line = String::new();
+//     stdin.read_line(&mut line)?;
+//     Ok(line)
+// }
 
 fn main() {
-    let ip = match prompt("ip:") {
-        Ok(ip) => {
-            println!("using {ip}");
-            ip
-        },
-        Err(e) => {
-            println!("using 1.1.1.1 since {e}");
-            String::from("1.1.1.1")
-        }
-    };
+//     let ip = match prompt("ip:") {
+//         Ok(ip) => {
+//             println!("using {ip}");
+//             ip
+//         },
+//         Err(e) => {
+//             println!("using 1.1.1.1 since {e}");
+//             String::from("1.1.1.1")
+//         }
+//     };
     let mut port = 1u16;
     loop {
         smolscale::spawn(async move {
