@@ -34,7 +34,7 @@ fn main() {
 //             String::from("1.1.1.1")
 //         }
 //     };
-    let mut port = 1u16;
+//     let mut port = 1u16;
     loop {
         smolscale::spawn(async move {
             send("114.114.114.114").await
