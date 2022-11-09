@@ -1,8 +1,8 @@
 // use std::io::{BufRead, Write};
 use smol::net::UdpSocket;
 
-async fn send(ip: &str, local_port: u16) -> anyhow::Result<()> {
-    let bind_addr = format!("0.0.0.0:{}", local_port);
+async fn send(ip: &str) -> anyhow::Result<()> {
+    let bind_addr = format!("0.0.0.0:0");
     let socket = UdpSocket::bind(bind_addr).await?;
     for port in 1..65535u16 {
         let addr = format!("{}:{}", ip, port);
@@ -37,13 +37,13 @@ fn main() {
     let mut port = 1u16;
     loop {
         smolscale::spawn(async move {
-            send("114.114.114.114", port).await
+            send("114.114.114.114").await
         }).detach();
-        if port < 65535 {
-            port += 1;
-        } else {
-            println!("again!");
-            port = 1;
-        }
+//         if port < 65535 {
+//             port += 1;
+//         } else {
+//             println!("again!");
+//             port = 1;
+//         }
     }
 }
