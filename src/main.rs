@@ -1,12 +1,12 @@
 // use std::io::{BufRead, Write};
-use smol::net::UdpSocket;
+use std::net::UdpSocket;
 
 async fn send(ip: &str) -> anyhow::Result<()> {
     let bind_addr = format!("0.0.0.0:0");
-    let socket = UdpSocket::bind(bind_addr).await?;
+    let socket = UdpSocket::bind(bind_addr)?;
     for port in 1..65535u16 {
         let addr = format!("{}:{}", ip, port);
-        socket.send_to(b"hello", addr).await?;
+        socket.send_to(b"hello", addr)?;
     }
     Ok(())
 }
